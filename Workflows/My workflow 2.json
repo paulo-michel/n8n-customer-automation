@@ -1,0 +1,157 @@
+{
+  "name": "My workflow 2",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "6d432dc1-30a0-4440-a35e-bddc1460d293",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "url": "https://jsonplaceholder.typicode.com/users",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "f5599a2c-57ec-46b9-b101-fe0b6d03655a",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6d25748c-4728-48a3-ad42-f3f46c01de5e",
+              "name": "nome",
+              "value": "={{$json.name}}",
+              "type": "string"
+            },
+            {
+              "id": "047f6340-8c3e-4a53-acc5-2110e0aae50a",
+              "name": "email",
+              "value": "={{$json.email}}",
+              "type": "string"
+            },
+            {
+              "id": "4d904461-a2d9-48a0-8358-659573d511cc",
+              "name": "empresa",
+              "value": "={{$json.company.name}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        416,
+        0
+      ],
+      "id": "6eceb53b-d16a-43c6-b628-638fdabe13de",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1wU5je8wewBXFYACAYyVClbUzTZVx0uC9yz9nAkx4M2E",
+          "mode": "list",
+          "cachedResultName": "Clientes API",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1wU5je8wewBXFYACAYyVClbUzTZVx0uC9yz9nAkx4M2E/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 266934784,
+          "mode": "list",
+          "cachedResultName": "Nome\tEmail\tEmpresa",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1wU5je8wewBXFYACAYyVClbUzTZVx0uC9yz9nAkx4M2E/edit#gid=266934784"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        624,
+        0
+      ],
+      "id": "e0963d06-0ad4-460b-8bd6-bcbdfb66aaa8",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ICBfSeOAiEyKxAf4",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "b0d08d54-c051-4b68-836d-ec926fb4b26e",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "ae497a1b0688368c449f41471a86c92ddce33b6b7b649621c0bab373cd6d939f"
+  },
+  "nodeGroups": [],
+  "id": "6LRBsstlb5WYDqwz",
+  "tags": []
+}
